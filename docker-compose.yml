@@ -9,7 +9,21 @@ services:
     restart: unless-stopped
     networks:
       - reddit-network
+  mongodb:
+    container_name: mongodb
+    image: mongo:6.0.8
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - reddit-network
 
 networks:
   reddit-network:
     driver: bridge
+volumes:
+  mongo-data:
